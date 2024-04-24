@@ -1,6 +1,6 @@
 from scrapy.crawler import CrawlerProcess
 
-from crawl_website import QuotesSpider
+from crawl_website_sky_news import QuotesSpider
 
 
 process = CrawlerProcess()
