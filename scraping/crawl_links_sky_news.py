@@ -1,4 +1,6 @@
 import scrapy
+from datetime import datetime
+
 from conn import get_database
 
 
@@ -10,16 +12,24 @@ crawled_links = [item['link'] for item in collection.find()]
 class QuotesSpider(scrapy.Spider):
     name = "quotes"
     start_urls = [
-        "https://www.telegraph.co.uk/news/2024/04/23/french-under-fire-over-death-crush-migrant-boat/",
+        "https://www.skynews.com.au/australia-news",
+        "https://www.skynews.com.au/world-news",
+        "https://www.skynews.com.au/opinion",
+        "https://www.skynews.com.au/business",
+        "https://www.skynews.com.au/lifestyle",
     ]
 
     def parse(self, response):
         links = set()
         for link in response.xpath("//a/@href").extract():
-            if "https://www.skynews.com.au/business/" in link and link not in crawled_links:
-                links.add(link)
+            try:
+                if "https://www.skynews.com.au/" in link and link not in links and link not in crawled_links and link.count("/") > 3:
+                    links.add(link)
+            except:
+                continue
 
-        links = [{'link': link} for link in links]
+        links = [{"link": link, "crawl_date": datetime.now()} for link in links]
 
-        collection.insert_many(links)
-        
+
+        if links:
+            collection.insert_many(links)
