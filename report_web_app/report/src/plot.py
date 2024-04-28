@@ -3,8 +3,7 @@ matplotlib.use('Agg')
 import matplotlib.pyplot as plt
 
 from .conn import get_database
-from .functions import lowercase_string_ls, remove_stop_words
-from .utils import extract_words
+from .functions import lowercase_string_ls, remove_stop_words, extract_nouns_from_text, extract_words
 
 
 def most_word_appearence(save_path: str, topk:int = 10) -> None:
@@ -17,7 +16,8 @@ def most_word_appearence(save_path: str, topk:int = 10) -> None:
 
     for item in items:
         for line in item['raw_content']:
-            words += extract_words(line)
+            text = extract_words(line)
+            words += extract_nouns_from_text(text)
 
     words = lowercase_string_ls(words)
     words = remove_stop_words(words)
@@ -29,12 +29,12 @@ def most_word_appearence(save_path: str, topk:int = 10) -> None:
         else:
             word_count[word] = 1
 
-    
 
     top = sorted(word_count.items(), key=lambda item: item[1], reverse=True)[:topk]
 
     plt.bar([item[0] for item in top], [item[1] for item in top])
     plt.xlabel("Word")
     plt.ylabel("Frequency")
+    plt.xticks(rotation=90)
 
-    plt.savefig(save_path)
+    plt.savefig(save_path, bbox_inches='tight')

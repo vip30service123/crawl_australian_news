@@ -1,34 +1,11 @@
-<!-- <!DOCTYPE html>
-<html>
-<head>
-    <title>Index</title>
-</head>
-<body>
-    <form method="post">
-        <label>Top K</label>
-        </br>
-        <input name="topk" id="topk" value="10">
-        </br>
-        <input type="submit" value="Show" name="submit">
-    </form> 
-    <p>{{ do_show }}</p>
-    {% if do_show == True %}
-        <img src="{{ url_for('static', filename='plot.png') }}" alt="User Image">
-    {% endif %}
-
-</body>
-</html> -->
-
-
-
-{% extends 'base.html' %}
+{% extends 'home.html' %}
 
 {% block content %}
     <form method="post">
         <label>Top K</label>
-        </br>
+        </br></br>
         <input name="topk" id="topk" value="10">
-        </br>
+        </br></br>
         <input type="submit" value="Show" name="submit">
     </form> 
     <p>{{ do_show }}</p>
