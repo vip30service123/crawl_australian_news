@@ -1,6 +1,6 @@
 import os
 
-from flask import Flask, render_template
+from flask import Flask, render_template, request
 
 from .src.plot import most_word_appearence
 
@@ -26,12 +26,21 @@ def create_app(test_config=None):
         pass
 
     # a simple page that says hello
-    @app.route('/')
-    def hello():
-        most_word_appearence("report/static/plot.png")
+    @app.route('/frequency', methods=["GET", "POST"])
+    def frequency():
+        if request.method == "POST":
+            topk = int(request.form['topk'])
 
-        
+            most_word_appearence("report/static/plot.png", topk=topk)
 
-        return render_template("home.html", user_image = "report/static/plot.png")
+            return render_template("frequency.html", do_show=True)    
+
+        return render_template("frequency.html", do_show=False)
     
+    @app.route('/')
+    @app.route('/home')
+    def home():
+        return render_template("base.html")
+
+
     return app

@@ -8,8 +8,9 @@ collection = get_database(dbname="crawl_website", colname="sky_news_au_contents"
 links_collection = get_database(dbname="crawl_website", colname="sky_news_au_links_business")
 crawled_content_links = [item['url'] for item in collection.find()]
 
-available_links = [link['link'] for link in links_collection.find() if link not in crawled_content_links]
+available_links = [link['link'] for link in links_collection.find() if link['link'] not in crawled_content_links]
 
+print("############################################", len(available_links))
 
 def string_to_date(string: str):
     # 2 types: "April 17, 2024 - 12:50PM" and "12 hours ago"

@@ -1,0 +1,6 @@
+fire
+flask
+matplotlib
+nltk
+pymongo[srv]
+scrapy
