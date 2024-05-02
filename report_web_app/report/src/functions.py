@@ -38,3 +38,7 @@ def extract_words(string: str) -> List[str]:
     pattern = r"\w+"
 
     return re.findall(pattern, string)
+
+
+def search(search_value: str, days: str) -> List:
+    pass

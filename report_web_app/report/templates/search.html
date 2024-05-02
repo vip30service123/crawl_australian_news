@@ -1,0 +1,28 @@
+{% extends 'home.html' %}
+
+
+
+
+
+{% block content %}
+
+<div>
+    <form method="post">
+        <label>Search</label>
+        <input name="search" id="search" value="{{ search_value }}">
+        </br>
+        <label>Days</label>
+        <select name="days" id="days">
+            <option value="1 day">1 Day</option>
+            <option value="1 month">1 Month</option>
+            <option value="1 year">1 Year</option>
+            <option selected="selected" value="all">All the time</option>
+        </select>
+        </br>
+        <input type="submit" value="Search" name="submit">
+    </form>
+</div> 
+
+<p> Total search items: {{ searched_items|length }}</p>
+
+{% endblock %}

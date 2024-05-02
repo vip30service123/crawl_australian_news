@@ -3,6 +3,7 @@ import os
 from flask import Flask, render_template, request
 
 from .src.plot import top_k_keywords, top_k_bigrams
+from .src.conn import search_term
 
 
 def create_app(test_config=None):
@@ -43,6 +44,22 @@ def create_app(test_config=None):
     @app.route('/home')
     def home():
         return render_template("home.html")
+    
+    @app.route("/search", methods=["GET", "POST"])
+    def search():
+        search_value = ""
+        searched_items = []
+
+        if request.method == "POST":
+            search_value = request.form['search']
+            days = request.form['days']
+
+            searched_items = search_term(search_value)
+
+
+
+
+        return render_template("search.html", search_value=search_value, searched_items=searched_items)
 
     return app
 

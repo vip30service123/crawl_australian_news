@@ -31,3 +31,26 @@ def filter_by_days(dbname: str = "crawled_website", colname: str = None, days_nu
     d = datetime.today() - timedelta(days=days_num)
 
     return [item for item in db_collection.find({"published_date" : {"$gte" : d}})]
+
+
+def search_term(search_terms: str, dbname: str = "crawled_website", colname: str = None, days_num: int = -1):
+    if not search_terms:
+        return filter_by_days(dbname, colname, days_num)
+
+
+    db_collection = get_database(dbname="crawl_website", colname="sky_news_au_contents")
+    d = datetime.today() - timedelta(days=days_num)
+
+    db_collection.create_index([("title", "text"), ("story_intro", "text"), ("raw_content", "text")])
+
+    search_query = {
+        "$and": [
+            # {"published_date": {"$gte" : d}},
+            {"$text": {
+                "$search": search_terms
+            }}
+        ]
+    }
+
+    return [item for item in db_collection.find(search_query)]
+
