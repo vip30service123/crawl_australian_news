@@ -2,7 +2,7 @@ import os
 
 from flask import Flask, render_template, request
 
-from .src.plot import most_word_appearence
+from .src.plot import top_k_keywords, top_k_bigrams
 
 
 def create_app(test_config=None):
@@ -30,8 +30,10 @@ def create_app(test_config=None):
     def frequency():
         if request.method == "POST":
             topk = int(request.form['topk'])
+            days = request.form['days']
 
-            most_word_appearence("report/static/plot.png", topk=topk)
+            top_k_keywords("report/static/top_k_keyword.png", topk=topk, days=days)
+            top_k_bigrams("report/static/top_k_bigram.png", topk=topk, days=days)
 
             return render_template("frequency.html", do_show=True)    
 
@@ -40,7 +42,9 @@ def create_app(test_config=None):
     @app.route('/')
     @app.route('/home')
     def home():
-        return render_template("base.html")
-
+        return render_template("home.html")
 
     return app
+
+
+

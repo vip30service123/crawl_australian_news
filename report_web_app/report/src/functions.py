@@ -16,6 +16,12 @@ def remove_stop_words(string_ls: List[str]) -> List[str]:
     return [w for w in string_ls if w not in stop_words]
 
 
+def remove_stop_words_bigram(bigrams: List[str]) -> List[str]:
+    stop_words = set(stopwords.words('english'))
+
+    return [bigram for bigram in bigrams if not any([stop_word in bigram.split() for stop_word in stop_words])]
+
+
 def extract_nouns_from_text(text: Union[str, List[str]]) -> List[str]:
 
     if type(text) == str:

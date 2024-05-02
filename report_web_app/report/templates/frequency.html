@@ -1,18 +1,27 @@
 {% extends 'home.html' %}
 
 {% block content %}
-    <form method="post">
-        <label>Top K</label>
-        </br></br>
-        <input name="topk" id="topk" value="10">
-        </br></br>
-        <input type="submit" value="Show" name="submit">
-    </form> 
-    <p>{{ do_show }}</p>
+    <div>
+        <form method="post">
+            <label>Top K</label>
+            <input name="topk" id="topk" value="10">
+            </br></br>
+            <label>Days</label>
+            <select name="days" id="days">
+                <option value="1 day">1 Day</option>
+                <option value="1 month">1 Month</option>
+                <option value="1 year">1 Year</option>
+                <option selected="selected" value="all">All the time</option>
+            </select>
+            </br></br>
+            <input type="submit" value="Show" name="submit">
+        </form>
+    </div> 
     {% if do_show == True %}
-        <img src="{{ url_for('static', filename='plot.png') }}" alt="User Image">
+        <img src="{{ url_for('static', filename='top_k_keyword.png') }}" alt="User Image">
+        <!-- </br></br> -->
+        <img src="{{ url_for('static', filename='top_k_bigram.png') }}" alt="User Image">
     {% endif %}
 
 {% endblock %}
-
 
