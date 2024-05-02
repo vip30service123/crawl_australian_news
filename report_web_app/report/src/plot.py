@@ -87,11 +87,11 @@ def top_k_bigrams(save_path: str, topk: int = 10, days: str = "all"):
 
     top = sorted(bigram_count.items(), key=lambda item: item[1], reverse=True)[:topk]
 
-
     plt.bar([item[0] for item in top], [item[1] for item in top])
     plt.xlabel("Bigram")
     plt.ylabel("Frequency")
     plt.xticks(rotation=90)
     plt.title(f"Top {topk} bigrams")
+    plt.savefig(save_path, bbox_inches='tight')
 
     plt.clf()
