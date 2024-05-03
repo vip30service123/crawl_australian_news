@@ -33,8 +33,18 @@ def filter_by_days(dbname: str = "crawled_website", colname: str = None, days_nu
     return [item for item in db_collection.find({"published_date" : {"$gte" : d}})]
 
 
-def search_term(search_terms: str, dbname: str = "crawled_website", colname: str = None, days_num: int = -1):
-    if not search_terms:
+def search_term(search_terms: str, dbname: str = "crawled_website", colname: str = None, days: str = "all"):
+    days_num = -1
+    if days == "1 day":
+        days_num = 1
+    elif days == "1 month":
+        days_num = 30
+    elif days == "1 year":
+        days_num = 365
+
+
+    if not search_terms or days_num == -1:
+        print(search_terms, days_num)
         return filter_by_days(dbname, colname, days_num)
 
 

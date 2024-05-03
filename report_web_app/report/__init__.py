@@ -54,9 +54,7 @@ def create_app(test_config=None):
             search_value = request.form['search']
             days = request.form['days']
 
-            searched_items = search_term(search_value)
-
-
+            searched_items = search_term(search_value, days=days)
 
 
         return render_template("search.html", search_value=search_value, searched_items=searched_items)
