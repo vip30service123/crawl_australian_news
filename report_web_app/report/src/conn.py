@@ -43,7 +43,7 @@ def search_term(search_terms: str, dbname: str = "crawled_website", colname: str
         days_num = 365
 
 
-    if not search_terms or days_num == -1:
+    if not search_terms:
         print(search_terms, days_num)
         return filter_by_days(dbname, colname, days_num)
 

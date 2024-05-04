@@ -25,4 +25,12 @@
 
 <p> Total search items: {{ searched_items|length }}</p>
 
+{% for item in searched_items %}
+    <div>
+        <a href="{{ item['url'] }}" target="_blank">{{ item["title"] }}</a>
+    </div>
+
+{% endfor %}
+
+
 {% endblock %}

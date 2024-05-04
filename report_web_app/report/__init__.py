@@ -56,6 +56,7 @@ def create_app(test_config=None):
 
             searched_items = search_term(search_value, days=days)
 
+            print(searched_items[0])
 
         return render_template("search.html", search_value=search_value, searched_items=searched_items)
 
